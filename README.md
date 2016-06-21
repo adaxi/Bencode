@@ -6,39 +6,39 @@ This library allows you to encode and decode B-encoded documents.
 Before:
 
 ```java
-	Map<String,BEncodedValue> document = new HashMap<String, BEncodedValue>() {{
-	    put("string", new BEncodedValue("value"));
-	    put("number", new BEncodedValue(123456));
-	    put("list", new BEncodedValue(new ArrayList<BEncodedValue>() {{
-	        add(new BEncodedValue("list-item-1"));
-	        add(new BEncodedValue("list-item-2"));
-	    }}));
-	    put("dict", new BEncodedValue(new HashMap<String, BEncodedValue>() {{
-	        put("123", new BEncodedValue("test"));
-	        put("456", new BEncodedValue("thing"));
-	    }}));
-	}};
-	
-	ByteArrayOutputStream baos = new ByteArrayOutputStream();
-	BEncoder.encode(document, baos);
-	String encodedDocument = new String(baos.toByteArray());
+Map<String,BEncodedValue> document = new HashMap<String, BEncodedValue>() {{
+    put("string", new BEncodedValue("value"));
+    put("number", new BEncodedValue(123456));
+    put("list", new BEncodedValue(new ArrayList<BEncodedValue>() {{
+        add(new BEncodedValue("list-item-1"));
+        add(new BEncodedValue("list-item-2"));
+    }}));
+    put("dict", new BEncodedValue(new HashMap<String, BEncodedValue>() {{
+        put("123", new BEncodedValue("test"));
+        put("456", new BEncodedValue("thing"));
+    }}));
+}};
+
+ByteArrayOutputStream baos = new ByteArrayOutputStream();
+BEncoder.encode(document, baos);
+String encodedDocument = new String(baos.toByteArray());
 ```
 
 After:
 
 ```
-	d
-		4:dict		d
-						3:123	4:test
-						3:456	5:thing
-					e
-		4:list		l
-						11:list-item-1
-						11:list-item-2
-					e
-		6:number	i123456e
-		6:string	5:value
-	e
+d
+	4:dict		d
+					3:123	4:test
+					3:456	5:thing
+				e
+	4:list		l
+					11:list-item-1
+					11:list-item-2
+				e
+	6:number	i123456e
+	6:string	5:value
+e
 ```
 
 The library can do the reverse operation as well: decode.
