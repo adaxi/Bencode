@@ -86,8 +86,8 @@ public class BDecoder {
 	 *
 	 * @param in The input stream to read from.
 	 */
-	public static BEncodedValue bdecode(InputStream in) throws IOException {
-		return new BDecoder(in).bdecode();
+	public static BEncodedValue decode(InputStream in) throws IOException {
+		return new BDecoder(in).decode();
 	}
 
 	/**
@@ -101,7 +101,7 @@ public class BDecoder {
 	 * @param data The {@link ByteBuffer} to read from.
 	 */
 	public static BEncodedValue bdecode(ByteBuffer data) throws IOException {
-		return BDecoder.bdecode(new AutoCloseInputStream(
+		return BDecoder.decode(new AutoCloseInputStream(
 			new ByteArrayInputStream(data.array())));
 	}
 
@@ -128,18 +128,18 @@ public class BDecoder {
 	 * has ended or b-decodes the rest of the stream and returns the
 	 * appropriate BEValue encoded object.
 	 */
-	public BEncodedValue bdecode() throws IOException	{
+	public BEncodedValue decode() throws IOException	{
 		if (this.getNextIndicator() == -1)
 			return null;
 
 		if (this.indicator >= '0' && this.indicator <= '9')
-			return this.bdecodeBytes();
+			return this.decodeBytes();
 		else if (this.indicator == 'i')
-			return this.bdecodeNumber();
+			return this.decodeNumber();
 		else if (this.indicator == 'l')
-			return this.bdecodeList();
+			return this.decodeList();
 		else if (this.indicator == 'd')
-			return this.bdecodeMap();
+			return this.decodeMap();
 		else
 			throw new InvalidBEncodingException
 				("Unknown indicator '" + this.indicator + "'");
@@ -151,7 +151,7 @@ public class BDecoder {
 	 *
 	 * @throws InvalidBEncodingException If it is not a b-encoded byte array.
 	 */
-	public BEncodedValue bdecodeBytes() throws IOException {
+	public BEncodedValue decodeBytes() throws IOException {
 		int c = this.getNextIndicator();
 		int num = c - '0';
 		if (num < 0 || num > 9)
@@ -182,7 +182,7 @@ public class BDecoder {
 	 *
 	 * @throws InvalidBEncodingException If it is not a number.
 	 */
-	public BEncodedValue bdecodeNumber() throws IOException {
+	public BEncodedValue decodeNumber() throws IOException {
 		int c = this.getNextIndicator();
 		if (c != 'i') {
 			throw new InvalidBEncodingException("Expected 'i', not '" +
@@ -240,7 +240,7 @@ public class BDecoder {
 	 *
 	 * @throws InvalidBEncodingException If it is not a list.
 	 */
-	public BEncodedValue bdecodeList() throws IOException {
+	public BEncodedValue decodeList() throws IOException {
 		int c = this.getNextIndicator();
 		if (c != 'l') {
 			throw new InvalidBEncodingException("Expected 'l', not '" +
@@ -251,7 +251,7 @@ public class BDecoder {
 		List<BEncodedValue> result = new ArrayList<BEncodedValue>();
 		c = this.getNextIndicator();
 		while (c != 'e') {
-			result.add(this.bdecode());
+			result.add(this.decode());
 			c = this.getNextIndicator();
 		}
 		this.indicator = 0;
@@ -265,7 +265,7 @@ public class BDecoder {
 	 *
 	 * @throws InvalidBEncodingException If it is not a map.
 	 */
-	public BEncodedValue bdecodeMap() throws IOException {
+	public BEncodedValue decodeMap() throws IOException {
 		int c = this.getNextIndicator();
 		if (c != 'd') {
 			throw new InvalidBEncodingException("Expected 'd', not '" +
@@ -277,9 +277,9 @@ public class BDecoder {
 		c = this.getNextIndicator();
 		while (c != 'e') {
 			// Dictionary keys are always strings.
-			String key = this.bdecode().getString();
+			String key = this.decode().getString();
 
-			BEncodedValue value = this.bdecode();
+			BEncodedValue value = this.decode();
 			result.put(key, value);
 
 			c = this.getNextIndicator();
