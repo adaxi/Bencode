@@ -1,7 +1,7 @@
 B-Encode
 ========
 
-[![Build Status](https://travis-ci.org/adaxi/Bencode.svg?branch=master)](https://travis-ci.org/adaxi/Bencode)
+[![Build Status](https://travis-ci.org/adaxi/Bencode.svg?branch=master)](https://travis-ci.org/adaxi/Bencode) [![Coverage Status](https://coveralls.io/repos/github/adaxi/Bencode/badge.svg?branch=master)](https://coveralls.io/github/adaxi/Bencode?branch=master)
 
 This library allows you to encode and decode B-encoded documents.
 
