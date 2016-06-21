@@ -1,7 +1,7 @@
 B-Encode
 ========
 
-[![Build Status](https://travis-ci.org/adaxi/Bencode.svg?branch=master)](https://travis-ci.org/adaxi/Bencode) [![Coverage Status](https://coveralls.io/repos/github/adaxi/Bencode/badge.svg?branch=master)](https://coveralls.io/github/adaxi/Bencode?branch=master)
+[![Build Status](https://travis-ci.org/adaxi/Bencode.svg?branch=master)](https://travis-ci.org/adaxi/Bencode) [![Coverage Status](https://coveralls.io/repos/github/adaxi/Bencode/badge.svg?branch=master)](https://coveralls.io/github/adaxi/Bencode?branch=master) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/be.adaxisoft/Bencode/badge.svg)](http://adaxi.github.io/Bencode/dependency-info.html)
 
 This library allows you to encode and decode B-encoded documents.
 
