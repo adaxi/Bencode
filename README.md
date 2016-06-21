@@ -1,7 +1,7 @@
 B-Encode
 ========
 
-[![Build Status](https://travis-ci.org/adaxi/Flat.svg?branch=master)](https://travis-ci.org/adaxi/Flat)
+[![Build Status](https://travis-ci.org/adaxi/Bencode.svg?branch=master)](https://travis-ci.org/adaxi/Bencode)
 
 This library allows you to encode and decode B-encoded documents.
 
