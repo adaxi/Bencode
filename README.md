@@ -45,9 +45,36 @@ e
 
 The library can do the reverse operation as well: decode.
 
+I want to decode a torrent file. How can I do that?
+---------------------------------------------------
 
-Use the library
----------------
+First you need to read the torrent and decode it:
+
+```java
+File torrentFile = "file.torrent";
+FileInputStream inputStream = new FileInputStream(torrentFile);
+BDecoder reader = new BDecoder(inputStream);
+Map<String, BEncodedValue> document = reader.decodeMap().getMap();
+```
+
+Then you can start extracting information from it:
+
+```java
+String announce = document.get("announce").getString(); // Strings
+Map<String, BEncodedValue> info = document.get("info").getMap(); // Maps
+List<BEncodedValue> files = info.get("files").getList(); // Lists
+```
+
+You can check if a key exists using the 'containsKey' method as such:
+
+```java
+if (document.containsKey("info")) {
+    System.out.println("The info field exists");
+}
+```
+
+Use th library
+--------------
 
 The [documentation page](http://adaxi.github.io/Bencode/dependency-info.html) lists how you can add this library
 as a dependency of your project.
