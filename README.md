@@ -73,7 +73,7 @@ if (document.containsKey("info")) {
 }
 ```
 
-Use th library
+Use the library
 --------------
 
 The [documentation page](http://adaxi.github.io/Bencode/dependency-info.html) lists how you can add this library
